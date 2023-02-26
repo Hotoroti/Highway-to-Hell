@@ -1,0 +1,72 @@
+class Ai_5 {
+  float xPos;
+  float yPos;
+  final float Size;
+  float xSpeed, ySpeed;
+  float roadWidth;
+  float radius;
+  color clr; // color Ai 5
+  int Hp;
+  boolean AI5 = true;
+  float AI5DownTime = 0;
+
+  Ai_5() {
+    roadWidth = width/2;
+    xPos = width/2;
+    yPos = height/2;
+    Size = 50;
+    xSpeed = 5;
+    ySpeed = 3;
+    clr = (#0096ff);
+    Hp = 100;
+  }
+
+  void update() {
+    xPos = xPos + xSpeed;
+    yPos = yPos + ySpeed;
+    //left to right movement
+    if (xPos  > roadWidth + roadWidth/2) {
+      xSpeed *= -1;
+    }
+    if (xPos < roadWidth - roadWidth/2) {
+      xSpeed *= -1;
+    }
+    //up and down movement
+    if (yPos < height - height/4) {
+      ySpeed *= -1;
+    }
+    if (yPos > 0 + height/4) {
+      ySpeed *=-1;
+    }
+    //water
+    if (thePlayer.y - 25 < theAi_5.yPos || theAi_5.yPos < thePlayer.y +25) { 
+      if (theWater.water == false) {
+        theWaterAi.startWaterAiX = theAi_5.xPos;
+        theWaterAi.startWaterAiY = theAi_5.yPos;
+        theWaterAi.water = true;
+      }
+    }
+  }
+
+  void draw() {
+    fill(clr);
+    if (AI5 == true) {
+      circle(xPos, yPos, Size);
+      if (Hp < theConfig.HpAI5) {
+        fill(#FF4646);
+        rect(xPos - 50, yPos - 50, 100, 10);
+        fill(#00ff00);
+        rect(xPos - 50, yPos - 50, Hp, 10);
+      }
+    }
+    if (Hp <= 0) {
+      AI5 = false;
+      AI5DownTime++;
+      if (AI5DownTime == 100) {
+        Hp = 100;
+        AI5DownTime = 0;
+        AI5 = true;
+      }
+    }
+  }
+}

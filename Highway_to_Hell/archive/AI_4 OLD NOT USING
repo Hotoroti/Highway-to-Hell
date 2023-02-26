@@ -1,0 +1,65 @@
+class AI4 {
+  int frameCounter;
+  float xPos;
+  float yPos;
+final float diameter;
+  int xSpeed;
+  int ySpeed;
+  int action;
+
+  AI4() {
+    frameCounter = 0;
+    xPos = width/2;
+    yPos = height/2;
+    diameter = 50;
+  }
+
+  void update() {
+    frameCounter++;
+    if (frameCounter == 50) {
+      frameCounter = 0;
+      action = (int)random(0, 7);
+    }
+    if (action == 0) {
+      xSpeed = 1;
+      ySpeed = 0;
+    }
+    if (action == 1) {
+      xSpeed = -1;
+      ySpeed = 0;
+    }
+    if (action == 2) {
+      xSpeed = 0;
+      ySpeed = 1;
+    }
+    if (action == 3) {
+      xSpeed = 0;
+      ySpeed = -1;
+    }
+    if (action == 4) {
+      xSpeed = 1;
+      ySpeed = 1;
+    }
+    if (action == 5) {
+      xSpeed = -1;
+      ySpeed = 1;
+    }
+    if (action == 6) {
+      xSpeed = 1;
+      ySpeed = -1;
+    }
+    if (action == 7) {
+      xSpeed = -1;
+      ySpeed = -1;
+    }
+    xPos = xPos + xSpeed;
+    yPos = yPos + ySpeed;
+  }
+
+  void draw() {
+    fill(255, 255, 0);
+    circle(xPos, yPos, diameter);
+    xPos = constrain(xPos, 0 + diameter/2, width - diameter/2);
+    yPos = constrain(yPos, 0 + diameter/2, height - diameter/2);
+  }
+}

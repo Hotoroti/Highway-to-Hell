@@ -1,0 +1,61 @@
+class Ai_3 {
+  int savedTime;
+  int totalTime;
+  float yPos; // y pos Ai 3
+  float xPos; // x pos Ai 3
+  int xSpeed; // y Speed Ai 3
+  color clr; // color Ai 3
+  final  float Size;
+  int direction;
+  int passedTime;
+  int Hp;
+  boolean AI3 = true;
+  float AI3DownTime = 0;
+
+  Ai_3() {
+    totalTime = 20;
+    yPos = 550;
+    xPos = 550;
+    xSpeed = 2;
+    Size = 50;
+    clr = color(#FF00A6);
+    savedTime = millis();
+    Hp = 100;
+  }
+
+  void update() {
+    direction = 0;
+    passedTime = millis() - savedTime;
+    //movement
+    if (passedTime > totalTime) {
+      direction = -1;
+      savedTime = millis();
+      if (xPos < 530 || xPos > 650) {
+        xSpeed = -xSpeed;
+      }
+    }
+    xPos = xPos + direction * xSpeed;
+  }
+
+  void draw() {
+    fill(clr);
+    if (AI3 == true) {
+      circle(xPos, yPos, Size);
+      if (Hp < theConfig.HpAI1) {
+        fill(#FF4646);
+        rect(xPos - 50, yPos - 50, 100, 10);
+        fill(#00ff00);
+        rect(xPos - 50, yPos - 50, Hp, 10);
+      }
+    }
+    if (Hp <= 0) {
+      AI3 = false;
+      AI3DownTime++;
+      if (AI3DownTime == 100) {
+        Hp = 100;
+        AI3DownTime = 0;
+        AI3 = true;
+      }
+    }
+  }
+}

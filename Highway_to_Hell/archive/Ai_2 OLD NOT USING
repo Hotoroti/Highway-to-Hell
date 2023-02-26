@@ -1,0 +1,63 @@
+class Ai_2 {
+
+  float xoff;
+  float yoff;
+  float xPos;
+  float yPos;
+  final  float Size;
+  float xincrement; 
+  float yincrement;
+  float roadWidth;
+  color clr;// color Ai 2\
+  float Hp;
+  boolean AI2 = true;
+  float AI2DownTime = 0;
+
+  Ai_2() {
+    xoff = 0.0;
+    yoff = 0.0;
+    //speed
+    xincrement = 0.005; 
+    yincrement = 0.002;
+    Size = 50;
+    roadWidth = width/2;
+    //car aspects
+
+    clr = (#0096ff);
+    Hp = 100;
+  }
+
+  void update() {
+    xPos = width/2;
+    yPos = height/2;
+    //car random movement
+    xPos = noise(xoff) * width/2;
+    yPos = noise(yoff) * height/2;
+
+    xoff += xincrement;
+    yoff += yincrement;
+  }
+
+
+  void draw() {
+    fill(clr);
+    if (AI2 == true) {
+      circle(xPos, yPos, Size);
+      if (Hp < theConfig.HpAI2) {
+        fill(#FF4646);
+        rect(xPos - 50, yPos - 50, 100, 10);
+        fill(#00ff00);
+        rect(xPos - 50, yPos - 50, Hp, 10);
+      }
+    }
+    if (Hp <= 0) {
+      AI2 = false;
+      AI2DownTime++;
+      if (AI2DownTime == 100) {
+        Hp = 100;
+        AI2DownTime = 0;
+        AI2 = true;
+      }
+    }
+  }
+}
